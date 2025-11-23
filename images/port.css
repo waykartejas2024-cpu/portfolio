@@ -1,0 +1,27 @@
+    body {
+        background-color: rgb(0, 0, 0);
+    }
+    
+    h3 {
+        text-align: center;
+    }
+    
+    #nam {
+        text-align: center;
+        text-decoration: aquamarine;
+    }
+    
+    #web {
+        text-align: center;
+        color: rgb(251, 251, 251);
+    }
+    
+    #tej {
+        text-align: center;
+        color: rgb(0, 0, 135);
+    }
+    
+    #intro {
+        text-align: center;
+        color: rgb(37, 29, 148);
+    }
