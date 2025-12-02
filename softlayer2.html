@@ -4,32 +4,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Place Order</title>
+    <style>
+        body{font-family:Segoe UI, Arial, sans-serif;background:#fff8f9;margin:0;padding:20px;color:#111}
+        .container{max-width:760px;margin:24px auto;background:#fff;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.06);padding:20px}
+        h1{margin:0 0 12px}
+        form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+        label{font-size:13px;color:#333}
+        input,select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6;font-size:14px}
+        textarea{resize:vertical}
+        .full{grid-column:1/ -1}
+        .actions{display:flex;gap:12px;align-items:center;margin-top:12px}
+        .btn{background:#d63384;color:white;padding:10px 14px;border:0;border-radius:8px;cursor:pointer}
+        .note{font-size:13px;color:#555}
+        .summary{background:#fff4f8;padding:12px;border-radius:8px;border:1px solid #fee;}
+        .error{color:#b00020;font-size:13px}
+        @media (max-width:640px){form{grid-template-columns:1fr}}
+    </style>
 </head>
 
-<body bgcolor="pink">
-    <center>
-        <h1>INFORMATION</h1>
+<body>
+    <div class="container">
+        <h1>Order Now</h1>
+        <p class="note">Please fill your details. Payment method: <strong>Cash on Delivery (COD)</strong>.</p>
 
-        <B> NAME</B><br>
-        <input type="text" value="enter name"> <br>
-        <BR>
+        <form id="orderForm" novalidate>
+            <div>
+                <label for="name">Full name *</label>
+                <input id="name" name="name" type="text" required placeholder="Your full name">
+            </div>
 
-        <B> ENTER NUMBER</B><br>
-        <input type="numbers" value="+91 ">
-        <BR><br>
-        <B>PIN CODE</B>
-        <BR>
-        <input type="text">
-        <br><br>
+            <div>
+                <label for="phone">Phone number *</label>
+                <input id="phone" name="phone" type="tel" required placeholder="+91 98765 43210">
+            </div>
 
-        <B>ADDRESS</B>
-        <BR>
-        <input type="text">
-        <br><br>
+            <div>
+                <label for="email">Email (optional)</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com">
+            </div>
 
-        <a href="orderpng.html"><button>ORDER</button></a>
-    </center>
+            <div>
+                <label for="quantity">Quantity *</label>
+                <input id="quantity" name="quantity" type="number" min="1" value="1" required>
+            </div>
+
+            <div class="full">
+                <label for="address">Address *</label>
+                <textarea id="address" name="address" rows="3" required placeholder="House number, street, landmark"></textarea>
+            </div>
+
+            <div>
+                <label for="city">City *</label>
+                <input id="city" name="city" type="text" required>
+            </div>
+
+            <div>
+                <label for="pincode">Pin / Postal code *</label>
+                <input id="pincode" name="pincode" type="text" required>
+            </div>
+
+            <div>
+                <label for="item">Item name *</label>
+                <input id="item" name="item" type="text" required value="Classic Cotton Shirt">
+            </div>
+
+            <div>
+                <label for="price">Price (per unit, ₹) *</label>
+                <input id="price" name="price" type="number" min="0" required value="699">
+            </div>
+
+            <div class="full">
+                <label>Payment method</label>
+                <div class="summary">Cash on Delivery (COD)</div>
+            </div>
+
+            <div id="error" class="error full" role="alert" style="display:none"></div>
+
+            <div class="actions full">
+                <button type="submit" class="btn">Place Order (COD)</button>
+                <button type="button" id="clearBtn" class="btn" style="background:#888">Clear</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('orderForm');
+        const errorEl = document.getElementById('error');
+        const clearBtn = document.getElementById('clearBtn');
+
+        function showError(msg){ errorEl.style.display='block'; errorEl.textContent = msg; }
+        function clearError(){ errorEl.style.display='none'; errorEl.textContent=''; }
+
+        function validatePhone(v){
+            // very small phone validation: digits and + allowed
+            return /^\+?[0-9\s-]{7,15}$/.test(v);
+        }
+
+        async function postOrderToServer(order){
+            try{
+                const resp = await fetch('/api/orders', {
+                    method: 'POST',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify(order)
+                });
+                if (!resp.ok) {
+                    const err = await resp.json().catch(()=>({}));
+                    console.warn('Server rejected order', err);
+                    return { ok:false };
+                }
+                const data = await resp.json();
+                return { ok:true, data };
+            }catch(e){
+                console.warn('Order POST failed', e);
+                return { ok:false };
+            }
+        }
+
+        form.addEventListener('submit', async function(e){
+            e.preventDefault();
+            clearError();
+            const data = Object.fromEntries(new FormData(form).entries());
+            // simple validation
+            if (!data.name.trim()) return showError('Please enter your name');
+            if (!validatePhone(data.phone || '')) return showError('Please enter a valid phone number');
+            if (!data.address.trim()) return showError('Please enter your address');
+            if (!data.city.trim()) return showError('Please enter your city');
+            if (!data.pincode.trim()) return showError('Please enter your postal code');
+            if (!data.item.trim()) return showError('Please enter the item name');
+            const qty = parseInt(data.quantity || '1', 10) || 1;
+            const price = parseFloat(data.price || '0') || 0;
+
+            const order = {
+                name: data.name,
+                phone: data.phone,
+                email: data.email || '',
+                address: data.address,
+                city: data.city,
+                pincode: data.pincode,
+                item: data.item,
+                quantity: qty,
+                price: price
+            };
+
+            // try server first
+            const serverResp = await postOrderToServer(order);
+            if (serverResp.ok && serverResp.data && serverResp.data.orderId){
+                // saved on server — redirect with id
+                const params = new URLSearchParams({ orderId: serverResp.data.orderId, item: order.item, total: '₹' + (qty*price).toFixed(2) });
+                window.location.href = 'order-success.html?' + params.toString();
+                return;
+            }
+
+            // fallback: save to localStorage
+            try{
+                const stored = JSON.parse(localStorage.getItem('orders') || '[]');
+                const orderId = 'ORD' + Date.now().toString().slice(-8);
+                const total = (qty * price).toFixed(2);
+                stored.push(Object.assign({ id: orderId, total, payment:'COD', date:new Date().toISOString() }, order));
+                localStorage.setItem('orders', JSON.stringify(stored));
+                const params = new URLSearchParams({ orderId: orderId, item: order.item, total: '₹' + total });
+                window.location.href = 'order-success.html?' + params.toString();
+            }catch(err){
+                showError('Failed to save order locally. Please try again.');
+            }
+        });
+
+        clearBtn.addEventListener('click', ()=>{ form.reset(); clearError(); });
+    </script>
 </body>
 
 </html>
