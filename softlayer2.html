@@ -6,20 +6,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Place Order</title>
     <style>
-        body{font-family:Segoe UI, Arial, sans-serif;background:#fff8f9;margin:0;padding:20px;color:#111}
-        .container{max-width:760px;margin:24px auto;background:#fff;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.06);padding:20px}
-        h1{margin:0 0 12px}
-        form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-        label{font-size:13px;color:#333}
-        input,select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6;font-size:14px}
-        textarea{resize:vertical}
-        .full{grid-column:1/ -1}
-        .actions{display:flex;gap:12px;align-items:center;margin-top:12px}
-        .btn{background:#d63384;color:white;padding:10px 14px;border:0;border-radius:8px;cursor:pointer}
-        .note{font-size:13px;color:#555}
-        .summary{background:#fff4f8;padding:12px;border-radius:8px;border:1px solid #fee;}
-        .error{color:#b00020;font-size:13px}
-        @media (max-width:640px){form{grid-template-columns:1fr}}
+        body {
+            font-family: Segoe UI, Arial, sans-serif;
+            background: #fff8f9;
+            margin: 0;
+            padding: 20px;
+            color: #111
+        }
+        
+        .container {
+            max-width: 760px;
+            margin: 24px auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            padding: 20px
+        }
+        
+        h1 {
+            margin: 0 0 12px
+        }
+        
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px
+        }
+        
+        label {
+            font-size: 13px;
+            color: #333
+        }
+        
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e6e6e6;
+            font-size: 14px
+        }
+        
+        textarea {
+            resize: vertical
+        }
+        
+        .full {
+            grid-column: 1/ -1
+        }
+        
+        .actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 12px
+        }
+        
+        .btn {
+            background: #d63384;
+            color: white;
+            padding: 10px 14px;
+            border: 0;
+            border-radius: 8px;
+            cursor: pointer
+        }
+        
+        .note {
+            font-size: 13px;
+            color: #555
+        }
+        
+        .summary {
+            background: #fff4f8;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #fee;
+        }
+        
+        .error {
+            color: #b00020;
+            font-size: 13px
+        }
+        
+        @media (max-width:640px) {
+            form {
+                grid-template-columns: 1fr
+            }
+        }
     </style>
 </head>
 
@@ -93,35 +167,51 @@
         const errorEl = document.getElementById('error');
         const clearBtn = document.getElementById('clearBtn');
 
-        function showError(msg){ errorEl.style.display='block'; errorEl.textContent = msg; }
-        function clearError(){ errorEl.style.display='none'; errorEl.textContent=''; }
+        function showError(msg) {
+            errorEl.style.display = 'block';
+            errorEl.textContent = msg;
+        }
 
-        function validatePhone(v){
+        function clearError() {
+            errorEl.style.display = 'none';
+            errorEl.textContent = '';
+        }
+
+        function validatePhone(v) {
             // very small phone validation: digits and + allowed
             return /^\+?[0-9\s-]{7,15}$/.test(v);
         }
 
-        async function postOrderToServer(order){
-            try{
+        async function postOrderToServer(order) {
+            try {
                 const resp = await fetch('/api/orders', {
                     method: 'POST',
-                    headers: {'Content-Type':'application/json'},
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify(order)
                 });
                 if (!resp.ok) {
-                    const err = await resp.json().catch(()=>({}));
+                    const err = await resp.json().catch(() => ({}));
                     console.warn('Server rejected order', err);
-                    return { ok:false };
+                    return {
+                        ok: false
+                    };
                 }
                 const data = await resp.json();
-                return { ok:true, data };
-            }catch(e){
+                return {
+                    ok: true,
+                    data
+                };
+            } catch (e) {
                 console.warn('Order POST failed', e);
-                return { ok:false };
+                return {
+                    ok: false
+                };
             }
         }
 
-        form.addEventListener('submit', async function(e){
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
             clearError();
             const data = Object.fromEntries(new FormData(form).entries());
@@ -149,28 +239,44 @@
 
             // try server first
             const serverResp = await postOrderToServer(order);
-            if (serverResp.ok && serverResp.data && serverResp.data.orderId){
+            if (serverResp.ok && serverResp.data && serverResp.data.orderId) {
                 // saved on server — redirect with id
-                const params = new URLSearchParams({ orderId: serverResp.data.orderId, item: order.item, total: '₹' + (qty*price).toFixed(2) });
+                const params = new URLSearchParams({
+                    orderId: serverResp.data.orderId,
+                    item: order.item,
+                    total: '₹' + (qty * price).toFixed(2)
+                });
                 window.location.href = 'order-success.html?' + params.toString();
                 return;
             }
 
             // fallback: save to localStorage
-            try{
+            try {
                 const stored = JSON.parse(localStorage.getItem('orders') || '[]');
                 const orderId = 'ORD' + Date.now().toString().slice(-8);
                 const total = (qty * price).toFixed(2);
-                stored.push(Object.assign({ id: orderId, total, payment:'COD', date:new Date().toISOString() }, order));
+                stored.push(Object.assign({
+                    id: orderId,
+                    total,
+                    payment: 'COD',
+                    date: new Date().toISOString()
+                }, order));
                 localStorage.setItem('orders', JSON.stringify(stored));
-                const params = new URLSearchParams({ orderId: orderId, item: order.item, total: '₹' + total });
+                const params = new URLSearchParams({
+                    orderId: orderId,
+                    item: order.item,
+                    total: '₹' + total
+                });
                 window.location.href = 'order-success.html?' + params.toString();
-            }catch(err){
+            } catch (err) {
                 showError('Failed to save order locally. Please try again.');
             }
         });
 
-        clearBtn.addEventListener('click', ()=>{ form.reset(); clearError(); });
+        clearBtn.addEventListener('click', () => {
+            form.reset();
+            clearError();
+        });
     </script>
 </body>
 
