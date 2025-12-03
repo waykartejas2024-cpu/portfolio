@@ -1,0 +1,28 @@
+0000000000000000000000000000000000000000 efa044455602345324bbae98f2370d84bf57abb8 shubhamAW <waykarshubham2022@gmail.com> 1760969446 +0530	commit (initial): first commit
+efa044455602345324bbae98f2370d84bf57abb8 4390b7a60bb098d18b07e3814679a1df62dce017 shubhamAW <waykarshubham2022@gmail.com> 1760970130 +0530	commit: remaned this file as index.html
+4390b7a60bb098d18b07e3814679a1df62dce017 a1b7fe4cb09a45118982c9a979b2b3c27ff50aba shubhamAW <waykarshubham2022@gmail.com> 1760970669 +0530	commit: comit addphoto
+a1b7fe4cb09a45118982c9a979b2b3c27ff50aba 905e66077e0968afc4c4d712e3a77f75db9d311a shubhamAW <waykarshubham2022@gmail.com> 1760971112 +0530	commit: update image assets for shirts and softlayer
+905e66077e0968afc4c4d712e3a77f75db9d311a 1574fa66fcc873929bbdc83cf6db4b3f61f98bce shubhamAW <waykarshubham2022@gmail.com> 1760971291 +0530	commit: remove padding and margin styles from .im class in softlaye.css
+1574fa66fcc873929bbdc83cf6db4b3f61f98bce c8f6d7b1dc61d0928554b3f68e492ed28cc25e95 shubhamAW <waykarshubham2022@gmail.com> 1760971747 +0530	commit: refactor: reorganize global styles and improve layout structure in softlaye.css
+c8f6d7b1dc61d0928554b3f68e492ed28cc25e95 a86ba84d7ee007331735fbcb4968c31076a2446a shubhamAW <waykarshubham2022@gmail.com> 1760971872 +0530	commit: remove hero text section from index.html
+a86ba84d7ee007331735fbcb4968c31076a2446a ae333441da83787ed3b2229a70b5f5e2940a9018 shubhamAW <waykarshubham2022@gmail.com> 1760972030 +0530	commit: refactor: update hero section and improve header structure in index.html and softlaye.css
+ae333441da83787ed3b2229a70b5f5e2940a9018 cf16b22844b2780a021965ccf2acbf68ca0add44 shubhamAW <waykarshubham2022@gmail.com> 1760972424 +0530	commit: refactor: update navigation link for HOME and enhance product card details in index.html and softlaye.css
+cf16b22844b2780a021965ccf2acbf68ca0add44 32a9bed5453671756bb225f46bc089024a1825b1 shubhamAW <waykarshubham2022@gmail.com> 1761315918 +0530	commit: commit space body tag
+32a9bed5453671756bb225f46bc089024a1825b1 a0bef43bf021227422552ca536033ef6480b8024 shubhamAW <waykarshubham2022@gmail.com> 1761317674 +0530	commit: feat: add initial HTML structure and styles for portfolio website
+a0bef43bf021227422552ca536033ef6480b8024 c0f28d99c838330231f9ed53f915a0e7e2767860 shubhamAW <waykarshubham2022@gmail.com> 1761317697 +0530	commit: feat: add tejas.css for styling the portfolio website and update tejas.html for structure
+c0f28d99c838330231f9ed53f915a0e7e2767860 91d6ce748c88cc70f3b377af7ca4991f0a284a63 shubhamAW <waykarshubham2022@gmail.com> 1762142985 +0530	commit: refactor: remove unused CSS and HTML files to clean up the project
+91d6ce748c88cc70f3b377af7ca4991f0a284a63 a6588a70e91cabae3841888e840b2276d11ebe89 shubhamAW <waykarshubham2022@gmail.com> 1762144654 +0530	commit: added a more 1 image
+a6588a70e91cabae3841888e840b2276d11ebe89 d7ee06352cb3bf6038c2ceb02596fc5a6b26f4cf shubhamAW <waykarshubham2022@gmail.com> 1762145308 +0530	commit: feat: update product details for Solid Slim Fit Shirt in index.html
+d7ee06352cb3bf6038c2ceb02596fc5a6b26f4cf 3932d6e3619c460e8aac8b15f087de415d3d2ad2 shubhamAW <waykarshubham2022@gmail.com> 1762145521 +0530	commit: feat: update product description for Solid Slim Fit Shirt in index.html
+3932d6e3619c460e8aac8b15f087de415d3d2ad2 cc651cc599331e9a437932dca94c3fc3207057f8 shubhamAW <waykarshubham2022@gmail.com> 1762162672 +0530	commit: feat: add new denim and casual shirts to product list in index.html
+cc651cc599331e9a437932dca94c3fc3207057f8 707b86174c2a28bed184210a9d10f93a5c7c4b76 shubhamAW <waykarshubham2022@gmail.com> 1762163669 +0530	commit: Refactor code structure for improved readability and maintainability
+707b86174c2a28bed184210a9d10f93a5c7c4b76 7f1b6ac1adc50fa242437d035dfaef1dd232e4c5 shubhamAW <waykarshubham2022@gmail.com> 1762165949 +0530	commit: feat: add order success page with styles and functionality
+7f1b6ac1adc50fa242437d035dfaef1dd232e4c5 a09edb97f6e50bd61e68bc7835404d8a1aa68ed7 shubhamAW <waykarshubham2022@gmail.com> 1762166334 +0530	commit: style: enhance order success page layout and improve CSS structure
+a09edb97f6e50bd61e68bc7835404d8a1aa68ed7 22c1f768ceb1268ba577e7e24498570d0af45653 shubhamAW <waykarshubham2022@gmail.com> 1762166462 +0530	commit: fix: remove duplicate author credit in footer
+22c1f768ceb1268ba577e7e24498570d0af45653 07cdc0a977f783e79662c8767f162f7269dc1ba7 shubhamAW <waykarshubham2022@gmail.com> 1763892137 +0530	commit: Add project files
+07cdc0a977f783e79662c8767f162f7269dc1ba7 9ff27c18d6ae9b52366f52505d73a74f8550a2d7 shubhamAW <waykarshubham2022@gmail.com> 1764676989 +0530	commit: Add initial CSS styles and images for portfolio layout
+9ff27c18d6ae9b52366f52505d73a74f8550a2d7 c09b60da814b812337d0a4f09a4f2748b76646c9 shubhamAW <waykarshubham2022@gmail.com> 1764677036 +0530	commit: style: refactor and enhance CSS for order form layout and improve JavaScript error handling
+c09b60da814b812337d0a4f09a4f2748b76646c9 217407b0f63695966ae285c2a79cf507ff8cdfbb shubhamAW <waykarshubham2022@gmail.com> 1764677812 +0530	commit: change a information page
+217407b0f63695966ae285c2a79cf507ff8cdfbb 217407b0f63695966ae285c2a79cf507ff8cdfbb shubhamAW <waykarshubham2022@gmail.com> 1764787043 +0530	Branch: renamed refs/heads/main to refs/heads/main
+217407b0f63695966ae285c2a79cf507ff8cdfbb 217407b0f63695966ae285c2a79cf507ff8cdfbb shubhamAW <waykarshubham2022@gmail.com> 1764787118 +0530	Branch: renamed refs/heads/main to refs/heads/main
+217407b0f63695966ae285c2a79cf507ff8cdfbb fafcbfd73383b6da1efcfdfa664489f50023aa4e shubhamAW <waykarshubham2022@gmail.com> 1764788221 +0530	commit: add page information click to order now button
